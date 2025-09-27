@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "dev:sim": "tsx watch src/sim/index.ts ./data/atletico-vs-madrid.json --seed=42",
     "typecheck": "tsc -p tsconfig.dev.json --noEmit",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint . --max-warnings=0",

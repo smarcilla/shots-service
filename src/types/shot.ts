@@ -1,17 +1,21 @@
+// src/types/shot.ts
+export type TeamSide = "local" | "visitante";
+
 export type Shot = {
-  jugador: string; // "Á. Moreno"
-  minuto: string; // "90+2"
-  xG: number; // 0.03
-  xGOT: number; // 0.00
-  resultado: "Gol" | "Fallado" | "Parado" | "Bloqueado";
-  situacion: "Juego abierto" | "Balón parado" | "Contraataque" | "Penalty" | "Falta";
-  tipo_disparo: "Diestro" | "Zurdo" | "Cabeza" | "Otro";
-  zona_gol: "Izquierda" | "Centro" | "Derecha";
+  minuto: number | string;
+  equipo: TeamSide;           // <- requerido para simular
+  xG: number;                 // probabilidad de gol en [0,1]
+  // Metadatos opcionales (no usados por la simulación pero útiles para trazas)
+  jugador?: string;
+  xGOT?: number;
+  situacion?: string;
+  resultado?: "Gol" | "Fallado" | "Parada" | "Bloqueo" | "Bloqueado";
+  tipo_disparo?: "Diestro" | "Zurdo" | "Cabeza" | "Otro";
 };
 
 export type MatchMeta = {
-  idPartido: string; // único (por ahora string)
-  fechaISO?: string; // opcional
+  idPartido: string;
+  fechaISO?: string;
   local: string;
   visitante: string;
   marcadorFinal: { local: number; visitante: number };
@@ -20,4 +24,27 @@ export type MatchMeta = {
 export type ShotsPayload = {
   match: MatchMeta;
   shots: Shot[];
+};
+
+// ------- Tipos para adaptar tu JSON externo (opcional) -------
+export type ExternalShot = {
+  minuto: number | string;
+  equipo: string;  // nombre equipo
+  jugador?: string;
+  xG: number;
+  xGOT?: number;
+  situacion?: string;
+  resultado?: string;
+  tipo_disparo?: string;
+};
+
+export type ExternalJson = {
+  partido: {
+    idPartido: string;
+    fechaISO?: string;
+    local: string;
+    visitante: string;
+    marcadorFinal: { local: number; visitante: number };
+  };
+  disparos: ExternalShot[];
 };

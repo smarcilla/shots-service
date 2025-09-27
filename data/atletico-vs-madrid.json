@@ -1,0 +1,201 @@
+{
+  "partido": {
+    "idPartido": "Atletico_vs_Madrid_27_09_2025",
+    "fechaISO": "2025-09-27T00:00:00Z",
+    "local": "Atletico Madrid",
+    "visitante": "Real Madrid",
+    "marcadorFinal": { "local": 5, "visitante": 2 }
+  },
+  "disparos": [
+    {
+      "minuto": 2,
+      "equipo": "Atletico Madrid",
+      "jugador": "David Hancko",
+      "xG": 0.05,
+      "xGOT": 0.0,
+      "situacion": "Córner",
+      "resultado": "Fallado",
+      "tipo_disparo": "Zurdo"
+    },
+    {
+      "minuto": 11,
+      "equipo": "Atletico Madrid",
+      "jugador": "Alexander Sørloth",
+      "xG": 0.03,
+      "xGOT": 0.02,
+      "situacion": "Asistencia",
+      "resultado": "Parada",
+      "tipo_disparo": "Cabeza"
+    },
+    {
+      "minuto": 14,
+      "equipo": "Atletico Madrid",
+      "jugador": "Robin Le Normand",
+      "xG": 0.26,
+      "xGOT": 0.41,
+      "situacion": "Balón parado",
+      "resultado": "Gol",
+      "tipo_disparo": "Cabeza"
+    },
+    {
+      "minuto": 23,
+      "equipo": "Atletico Madrid",
+      "jugador": "Nicolás González",
+      "xG": 0.06,
+      "xGOT": 0.0,
+      "situacion": "Contraataque",
+      "resultado": "Bloqueo",
+      "tipo_disparo": "Zurdo"
+    },
+    {
+      "minuto": 24,
+      "equipo": "Atletico Madrid",
+      "jugador": "Clément Lenglet",
+      "xG": 0.05,
+      "xGOT": 0.0,
+      "situacion": "Córner",
+      "resultado": "Fallado",
+      "tipo_disparo": "Cabeza"
+    },
+    {
+      "minuto": 30,
+      "equipo": "Atletico Madrid",
+      "jugador": "Pablo Barrios",
+      "xG": 0.03,
+      "xGOT": 0.0,
+      "situacion": "Juego abierto",
+      "resultado": "Fallado",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 39,
+      "equipo": "Atletico Madrid",
+      "jugador": "Julián Álvarez",
+      "xG": 0.02,
+      "xGOT": 0.0,
+      "situacion": "Asistencia",
+      "resultado": "Fallado",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 48,
+      "equipo": "Atletico Madrid",
+      "jugador": "Alexander Sørloth",
+      "xG": 0.23,
+      "xGOT": 0.64,
+      "situacion": "Saque de banda",
+      "resultado": "Gol",
+      "tipo_disparo": "Cabeza"
+    },
+    {
+      "minuto": 51,
+      "equipo": "Atletico Madrid",
+      "jugador": "Julián Álvarez",
+      "xG": 0.79,
+      "xGOT": 0.6,
+      "situacion": "Penalti",
+      "resultado": "Gol",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 59,
+      "equipo": "Atletico Madrid",
+      "jugador": "Julián Álvarez",
+      "xG": 0.05,
+      "xGOT": 0.0,
+      "situacion": "Tiro libre",
+      "resultado": "Fallado",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 62,
+      "equipo": "Atletico Madrid",
+      "jugador": "Alexander Sørloth",
+      "xG": 0.23,
+      "xGOT": 0.19,
+      "situacion": "Balón parado",
+      "resultado": "Parada",
+      "tipo_disparo": "Zurdo"
+    },
+    {
+      "minuto": 64,
+      "equipo": "Atletico Madrid",
+      "jugador": "Julián Álvarez",
+      "xG": 0.04,
+      "xGOT": 0.06,
+      "situacion": "Tiro libre",
+      "resultado": "Gol",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 93,
+      "equipo": "Atletico Madrid",
+      "jugador": "Antoine Griezmann",
+      "xG": 0.47,
+      "xGOT": 0.38,
+      "situacion": "Asistencia",
+      "resultado": "Gol",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 25,
+      "equipo": "Real Madrid",
+      "jugador": "Antoine Griezmann",
+      "xG": 0.14,
+      "xGOT": 0.41,
+      "situacion": "Asistencia",
+      "resultado": "Gol",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 36,
+      "equipo": "Real Madrid",
+      "jugador": "Arda Güler",
+      "xG": 0.32,
+      "xGOT": 0.26,
+      "situacion": "Contraataque",
+      "resultado": "Gol",
+      "tipo_disparo": "Zurdo"
+    },
+    {
+      "minuto": 47,
+      "equipo": "Real Madrid",
+      "jugador": "Arda Güler",
+      "xG": 0.03,
+      "xGOT": 0.0,
+      "situacion": "Asistencia",
+      "resultado": "Fallado",
+      "tipo_disparo": "Zurdo"
+    },
+    {
+      "minuto": 68,
+      "equipo": "Real Madrid",
+      "jugador": "Jude Bellingham",
+      "xG": 0.03,
+      "xGOT": 0.0,
+      "situacion": "Balón parado",
+      "resultado": "Fallado",
+      "tipo_disparo": "Cabeza"
+    },
+    {
+      "minuto": 76,
+      "equipo": "Real Madrid",
+      "jugador": "Rodrygo",
+      "xG": 0.03,
+      "xGOT": 0.0,
+      "situacion": "Asistencia",
+      "resultado": "Fallado",
+      "tipo_disparo": "Diestro"
+    },
+    {
+      "minuto": 88,
+      "equipo": "Real Madrid",
+      "jugador": "Franco Mastantuono",
+      "xG": 0.04,
+      "xGOT": 0.0,
+      "situacion": "Tiro libre",
+      "resultado": "Fallado",
+      "tipo_disparo": "Zurdo"
+    }
+  ]
+}
