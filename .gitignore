@@ -1,0 +1,13 @@
+# dependencies
+node_modules/
+
+# builds
+dist/
+
+# env
+.env
+.env.*
+
+# OS / IDE
+.DS_Store
+.vscode/settings.json
