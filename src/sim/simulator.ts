@@ -1,10 +1,10 @@
 // src/sim/simulator.ts
 import type {
-  ShotsPayload,
-  Shot,
-  TeamSide,
   ExternalJson,
+  Shot,
+  ShotsPayload,
   ShotsPayload as SP,
+  TeamSide,
 } from "../types/shot.js";
 import { hashStringToSeed, mulberry32 } from "./random.js";
 

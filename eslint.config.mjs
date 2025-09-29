@@ -1,7 +1,8 @@
 // eslint.config.mjs
-import tseslint from "typescript-eslint";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import tseslint from "typescript-eslint";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -26,6 +27,9 @@ export default [
   ...tseslint.configs.recommendedTypeChecked,
   {
     files: ["**/*.ts"],
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
     languageOptions: {
       parserOptions: {
         project: ["./tsconfig.dev.json"],
