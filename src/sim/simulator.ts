@@ -1,5 +1,11 @@
 // src/sim/simulator.ts
-import type { ShotsPayload, Shot, TeamSide, ExternalJson, ShotsPayload as SP } from "../types/shot.js";
+import type {
+  ShotsPayload,
+  Shot,
+  TeamSide,
+  ExternalJson,
+  ShotsPayload as SP,
+} from "../types/shot.js";
 import { hashStringToSeed, mulberry32 } from "./random.js";
 
 export type Score = { local: number; visitante: number };

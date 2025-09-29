@@ -3,8 +3,8 @@ export type TeamSide = "local" | "visitante";
 
 export type Shot = {
   minuto: number | string;
-  equipo: TeamSide;           // <- requerido para simular
-  xG: number;                 // probabilidad de gol en [0,1]
+  equipo: TeamSide; // <- requerido para simular
+  xG: number; // probabilidad de gol en [0,1]
   // Metadatos opcionales (no usados por la simulación pero útiles para trazas)
   jugador?: string;
   xGOT?: number;
@@ -29,7 +29,7 @@ export type ShotsPayload = {
 // ------- Tipos para adaptar tu JSON externo (opcional) -------
 export type ExternalShot = {
   minuto: number | string;
-  equipo: string;  // nombre equipo
+  equipo: string; // nombre equipo
   jugador?: string;
   xG: number;
   xGOT?: number;
