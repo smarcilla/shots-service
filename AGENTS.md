@@ -33,3 +33,7 @@ Follow the existing Conventional Commit style: `<type>(<scope>): summary` with i
 ## Pre-push Checklist
 
 Run `npm run format` and `npm run lint` locally before pushing any branch to guarantee code style and lint rules are satisfied.
+
+## Branching Workflow
+
+Before starting new work fetch and fast-forward `main`, then create the feature branch from that refreshed base.
