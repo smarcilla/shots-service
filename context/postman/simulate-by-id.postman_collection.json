@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "Shots Service",
+    "description": "Colección para validar el endpoint POST /simulate/by-id del shots-service.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.1.0"
+  },
+  "item": [
+    {
+      "name": "Simular partido por id (200)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Incluye resumen de simulación\", function () {",
+              "  const body = pm.response.json();",
+              "  pm.expect(body).to.have.property('summary');",
+              "  pm.expect(body.summary).to.have.property('iterations');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"{{matchId}}\",\n  \"runs\": 1000\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/simulate/by-id",
+          "host": ["{{baseUrl}}"],
+          "path": ["simulate", "by-id"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Simular con seed fija (200)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Conserva runs solicitados\", function () {",
+              "  const body = pm.response.json();",
+              "  pm.expect(body.runs).to.eql(500);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"{{matchId}}\",\n  \"runs\": 500,\n  \"seed\": 12345\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/simulate/by-id",
+          "host": ["{{baseUrl}}"],
+          "path": ["simulate", "by-id"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Partido inexistente (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 404\", function () {",
+              "  pm.response.to.have.status(404);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"{{missingMatchId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/simulate/by-id",
+          "host": ["{{baseUrl}}"],
+          "path": ["simulate", "by-id"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cuerpo inválido (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 400\", function () {",
+              "  pm.response.to.have.status(400);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"runs\": 1000\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/simulate/by-id",
+          "host": ["{{baseUrl}}"],
+          "path": ["simulate", "by-id"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "matchId",
+      "value": "atl-mad-20240928"
+    },
+    {
+      "key": "missingMatchId",
+      "value": "match-that-does-not-exist"
+    }
+  ]
+}
