@@ -37,3 +37,7 @@ Run `npm run format` and `npm run lint` locally before pushing any branch to gua
 ## Branching Workflow
 
 Before starting new work fetch and fast-forward `main`, then create the feature branch from that refreshed base.
+
+## Development Workflow
+
+Adopt TDD for all code changes: first scaffold empty tests and request confirmation, then implement the test cases and watch them fail (red) before seeking confirmation again, and finally add the production logic to satisfy the tests (green).
