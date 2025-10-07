@@ -41,3 +41,7 @@ Before starting new work fetch and fast-forward `main`, then create the feature 
 ## Development Workflow
 
 Adopt TDD for all code changes: first scaffold empty tests and request confirmation, then implement the test cases and watch them fail (red) before seeking confirmation again, and finally add the production logic to satisfy the tests (green).
+
+## Design Guidelines
+
+Favor SOLID and other proven design patterns when evolving the codebase; include succinct comments that clarify the chosen pattern and why it fits the scenario.
