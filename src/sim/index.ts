@@ -8,6 +8,7 @@ import {
   type SimulationSummary,
 } from "./simulator.js";
 import type { ExternalJson, ShotsPayload } from "../types/shot.js";
+import { createLogger, type LogLevel } from "../lib/logging/index.js";
 
 type ExportedTopLine = {
   score: string;
@@ -41,6 +42,11 @@ type ParsedArgs = {
   seed?: number;
   outputPath: string;
 };
+
+const logLevel =
+  (process.env.LOG_LEVEL as LogLevel) ||
+  (process.env.NODE_ENV === "production" ? "info" : "debug");
+const logger = createLogger({ level: logLevel, service: "shots-service", bindings: { module: "sim" } });
 
 function parseCliArgs(argv: string[]): ParsedArgs {
   const [inputPath, ...rest] = argv;
@@ -102,9 +108,23 @@ async function main(): Promise<void> {
   const payload = adaptExternalJson(ext);
   const context = createSimulationContext(payload);
 
+  logger.info("simulation input loaded", {
+    evt: "sim.input",
+    seed: args.seed,
+    inputPath: resolve(inputPath),
+    shots: payload.shots.length,
+  });
+
   const iterationsList = [100, 1000, 10000] as const;
   const runs: ExportedRun[] = iterationsList.map((iterations) => {
     const summary = runSimulationBatch(context, iterations, args.seed);
+    logger.info("simulation batch completed", {
+      evt: "sim.batch",
+      iterations,
+      seed: args.seed,
+      marcadorFinal: summary.marcadorFinalCount,
+      pct: Number(summary.marcadorFinalPct.toFixed(2)),
+    });
     return toExport(summary, payload.match);
   });
 
@@ -121,10 +141,13 @@ async function main(): Promise<void> {
 
   const resolvedOutput = resolve(args.outputPath);
   await writeFile(resolvedOutput, JSON.stringify(exportPayload, null, 2), "utf8");
-  console.info(`Simulation results written to ${resolvedOutput}`);
+  logger.info("simulation output written", {
+    evt: "sim.output",
+    outputPath: resolvedOutput,
+  });
 }
 
 main().catch((error: Error) => {
-  console.error("Simulation failed:", error.message);
+  logger.error("simulation failed", { evt: "sim.error", err: error });
   process.exit(1);
 });
