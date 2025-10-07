@@ -29,3 +29,7 @@ Tests use Vitest and live in `test/*.test.ts`. Mirror production filenames where
 ## Commit & Pull Request Guidelines
 
 Follow the existing Conventional Commit style: `<type>(<scope>): summary` with imperative phrasing (e.g., `feat(logging): add file adapter`). Reference any GitHub issues in the body. Pull requests should outline motivation, summarize changes, list test commands executed, and attach simulator output or screenshots when behavior changes. Ensure lint, format, build, and tests pass in CI; note any deviations explicitly in the PR description.
+
+## Pre-push Checklist
+
+Run `npm run format` and `npm run lint` locally before pushing any branch to guarantee code style and lint rules are satisfied.
