@@ -44,9 +44,12 @@ type ParsedArgs = {
 };
 
 const logLevel =
-  (process.env.LOG_LEVEL as LogLevel) ||
-  (process.env.NODE_ENV === "production" ? "info" : "debug");
-const logger = createLogger({ level: logLevel, service: "shots-service", bindings: { module: "sim" } });
+  (process.env.LOG_LEVEL as LogLevel) || (process.env.NODE_ENV === "production" ? "info" : "debug");
+const logger = createLogger({
+  level: logLevel,
+  service: "shots-service",
+  bindings: { module: "sim" },
+});
 
 function parseCliArgs(argv: string[]): ParsedArgs {
   const [inputPath, ...rest] = argv;
