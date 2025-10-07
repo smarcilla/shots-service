@@ -23,6 +23,12 @@ export type SimulationSummary = {
   marcadorFinalPct: number;
 };
 
+export interface SimulationContext {
+  payload: ShotsPayload;
+  localProbabilities: number[];
+  visitanteProbabilities: number[];
+}
+
 // ---- Utilidades internas ----
 function clamp01(x: number): number {
   if (Number.isNaN(x)) return 0;
@@ -51,6 +57,15 @@ function splitProbabilities(shots: Shot[]): { localPs: number[]; visitantePs: nu
   return { localPs, visitantePs };
 }
 
+export function createSimulationContext(payload: ShotsPayload): SimulationContext {
+  const { localPs, visitantePs } = splitProbabilities(payload.shots);
+  return {
+    payload,
+    localProbabilities: localPs,
+    visitanteProbabilities: visitantePs,
+  };
+}
+
 function sampleGoals(probs: number[], rng: () => number): number {
   // suma de Bernoullis independientes
   let g = 0;
@@ -62,10 +77,14 @@ function sampleGoals(probs: number[], rng: () => number): number {
 
 // ---- Núcleo de simulación ----
 export function simulateOnce(payload: ShotsPayload, rng: () => number): Score {
-  const { localPs, visitantePs } = splitProbabilities(payload.shots);
+  const context = createSimulationContext(payload);
+  return simulateWithContext(context, rng);
+}
+
+export function simulateWithContext(context: SimulationContext, rng: () => number): Score {
   return {
-    local: sampleGoals(localPs, rng),
-    visitante: sampleGoals(visitantePs, rng),
+    local: sampleGoals(context.localProbabilities, rng),
+    visitante: sampleGoals(context.visitanteProbabilities, rng),
   };
 }
 
@@ -75,31 +94,26 @@ export function simulateOnce(payload: ShotsPayload, rng: () => number): Score {
  * - Usa Map para conteo O(1)
  * - Empata por orden lexicográfico del marcador si hay igualdad
  */
-export function runSimulations(
-  payload: ShotsPayload,
+export function runSimulationBatch(
+  context: SimulationContext,
   iterations: number,
   seed?: number,
 ): SimulationSummary {
-  const s = seed ?? hashStringToSeed(payload.match.idPartido + "|" + iterations.toString());
+  const matchId = context.payload.match.idPartido;
+  const s = seed ?? hashStringToSeed(matchId + "|" + iterations.toString());
   const rng = mulberry32(s);
-
-  // pre-split para no recalcular en cada iteración
-  const { localPs, visitantePs } = splitProbabilities(payload.shots);
 
   const counts = new Map<string, number>();
   for (let i = 0; i < iterations; i++) {
-    const l = sampleGoals(localPs, rng);
-    const v = sampleGoals(visitantePs, rng);
+    const l = sampleGoals(context.localProbabilities, rng);
+    const v = sampleGoals(context.visitanteProbabilities, rng);
     const k = `${l}-${v}`;
     counts.set(k, (counts.get(k) ?? 0) + 1);
   }
 
-  // top-5
   const entries = Array.from(counts.entries());
   entries.sort((a, b) => {
-    // primero por frecuencia desc
     if (b[1] !== a[1]) return b[1] - a[1];
-    // luego lexicográfico para estabilidad
     return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0;
   });
   const top5: TopLine[] = entries.slice(0, 5).map(([k, c]) => ({
@@ -108,7 +122,7 @@ export function runSimulations(
     pct: (c / iterations) * 100,
   }));
 
-  const realKey = keyFromScore(payload.match.marcadorFinal);
+  const realKey = keyFromScore(context.payload.match.marcadorFinal);
   const realCount = counts.get(realKey) ?? 0;
 
   return {
@@ -117,6 +131,15 @@ export function runSimulations(
     marcadorFinalCount: realCount,
     marcadorFinalPct: (realCount / iterations) * 100,
   };
+}
+
+export function runSimulations(
+  payload: ShotsPayload,
+  iterations: number,
+  seed?: number,
+): SimulationSummary {
+  const context = createSimulationContext(payload);
+  return runSimulationBatch(context, iterations, seed);
 }
 
 // ---- Adaptador desde tu JSON externo (partido/disparos) ----
